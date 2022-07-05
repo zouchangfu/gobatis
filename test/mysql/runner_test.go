@@ -84,9 +84,15 @@ func TestMysql(t *testing.T) {
 	initTest(t)
 	var testV TestTable
 
+	// 创建会话管理器
 	mgr := gobatis.NewSessionManager(connect())
+
+	// 创建会话
 	sess := mgr.NewSession()
+
 	count := 0
+
+	// 执行sql
 	errI := sess.Insert("INSERT INTO test_table(username, password) VALUES('user1', 'pw1')").Param().Result(&count)
 	if errI != nil {
 		t.Fatal(errI)

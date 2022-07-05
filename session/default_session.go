@@ -35,6 +35,8 @@ type DefaultSqlSession struct {
 }
 
 func NewDefaultSqlSession(log logging.LogFunc, tx transaction.Transaction, e executor.Executor, autoCommit bool) *DefaultSqlSession {
+
+	// 创建默认的会话
 	ret := &DefaultSqlSession{
 		Log:        log,
 		tx:         tx,

@@ -26,22 +26,28 @@ import (
 
 type FacOpt func(f *factory.DefaultFactory)
 
+// 创建工厂，传入的是可变参数，而且都是方法参数
+// 方法的参数必须是 f *factory.DefaultFactory 类型的参数
 func NewFactory(opts ...FacOpt) factory.Factory {
 	f, _ := CreateFactory(opts...)
 	return f
 }
 
 func CreateFactory(opts ...FacOpt) (factory.Factory, error) {
+
+	// 创建默认工厂对象
 	f := &factory.DefaultFactory{
 		Log: logging.DefaultLogf,
 	}
 
+	// 遍历所有的参数，执行所有的参数方法
 	if len(opts) > 0 {
 		for _, opt := range opts {
 			opt(f)
 		}
 	}
 
+	// 和数据库建立连接
 	err := f.Open(f.DataSource)
 	if err != nil {
 		return nil, err

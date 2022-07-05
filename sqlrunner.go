@@ -33,6 +33,8 @@ type SessionManager struct {
 }
 
 func NewSessionManager(factory factory.Factory) *SessionManager {
+	// 工具创建的工厂来创建 会话管理器
+	// 给定默认的解析工厂DynamicParserFactory
 	return &SessionManager{
 		factory:       factory,
 		ParserFactory: DynamicParserFactory,

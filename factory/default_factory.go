@@ -53,11 +53,13 @@ func (f *DefaultFactory) Open(ds datasource.DataSource) error {
 		f.DataSource = ds
 	}
 
+	// 连接数据库
 	db, err := sql.Open(f.DataSource.DriverName(), f.DataSource.DriverInfo())
 	if err != nil {
 		return err
 	}
 
+	// 设置数据库最大连接数
 	db.SetMaxOpenConns(f.MaxConn)
 	db.SetMaxIdleConns(f.MaxIdleConn)
 	db.SetConnMaxLifetime(f.ConnMaxLifetime)
@@ -86,7 +88,10 @@ func (f *DefaultFactory) CreateExecutor(transaction transaction.Transaction) exe
 }
 
 func (f *DefaultFactory) CreateSession() session.SqlSession {
+	// 创建事务
 	tx := f.CreateTransaction()
+
+	// f.CreateExecutor(tx) 根据事务创建执行器
 	return session.NewDefaultSqlSession(f.Log, tx, f.CreateExecutor(tx), false)
 }
 
