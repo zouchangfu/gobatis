@@ -18,5 +18,8 @@
 package gobatis
 
 const (
-	ContextSessionKey = "__gobatis_session__"
+	CONTEXT_SESSION_KEY = "__gobatis_session__"
+	MYSQL               = "mysql"
+	SQLLITE             = "sqllite"
+	POSTGRE             = "postgre"
 )

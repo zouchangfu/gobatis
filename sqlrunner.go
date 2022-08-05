@@ -114,18 +114,18 @@ func (sessionManager *SessionManager) Context(ctx context.Context) context.Conte
 		driver:        sessionManager.factory.GetDataSource().DriverName(),
 		ParserFactory: sessionManager.ParserFactory,
 	}
-	return context.WithValue(ctx, ContextSessionKey, sess)
+	return context.WithValue(ctx, CONTEXT_SESSION_KEY, sess)
 }
 
 func WithSession(ctx context.Context, sess *Session) context.Context {
-	return context.WithValue(ctx, ContextSessionKey, sess)
+	return context.WithValue(ctx, CONTEXT_SESSION_KEY, sess)
 }
 
 func FindSession(ctx context.Context) *Session {
 	if ctx == nil {
 		return nil
 	}
-	return ctx.Value(ContextSessionKey).(*Session)
+	return ctx.Value(CONTEXT_SESSION_KEY).(*Session)
 }
 
 func (sessionManager *SessionManager) Close() error {
